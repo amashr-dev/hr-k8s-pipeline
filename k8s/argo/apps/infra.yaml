@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: amashr-infra
+  namespace: argocd
+spec:
+  source:
+    repoURL: https://github.com/allymaumba/amashr-k8s
+    targetRevision: HEAD
+    path: charts/infra
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: infra
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

@@ -1,0 +1,12 @@
+flowchart TD
+  CI[App CI/CD Pipeline] --> DevUpdate[Push image tag to dev]
+  DevUpdate --> ArgoDev[ArgoCD syncs dev]
+  ArgoDev --> DevEnv[Deployed to Dev]
+
+  DevUpdate -->|PR| TestUpdate[dev → test]
+  TestUpdate --> ArgoTest[ArgoCD syncs test]
+  ArgoTest --> TestEnv[Test Cluster]
+
+  TestUpdate -->|PR| ProdUpdate[test → main]
+  ProdUpdate --> ArgoProd[ArgoCD syncs main]
+  ArgoProd --> ProdEnv[Production Cluster]

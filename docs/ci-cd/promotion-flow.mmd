@@ -1,0 +1,13 @@
+flowchart LR
+  AppRepo["hr-web Repo"]
+  CI["CI builds + updates dev branch"]
+  DevBranch["amashr-k8s: dev"]
+  TestBranch["amashr-k8s: test"]
+  MainBranch["amashr-k8s: main"]
+  ArgoDev["ArgoCD: Dev App"]
+  ArgoTest["ArgoCD: Test App"]
+  ArgoProd["ArgoCD: Prod App"]
+
+  AppRepo --> CI --> DevBranch --> ArgoDev
+  DevBranch -->|PR| TestBranch --> ArgoTest
+  TestBranch -->|PR| MainBranch --> ArgoProd

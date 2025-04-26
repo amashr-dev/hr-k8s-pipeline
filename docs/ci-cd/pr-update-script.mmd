@@ -1,0 +1,9 @@
+flowchart TD
+  CI[GitHub CI runs in hr-web repo] --> BuildDocker[Build & Push Docker Image]
+  BuildDocker --> UpdateScript[Run PR update script]
+  UpdateScript --> CloneGitOps[Clone amashr-k8s]
+  CloneGitOps --> UpdateYAML[Update values.yaml]
+  UpdateYAML --> PushBranch[Push branch]
+  PushBranch --> CreatePR[Open Pull Request]
+  CreatePR --> MergePR[You merge the PR]
+  MergePR --> ArgoCD[ArgoCD auto-deploys new image]

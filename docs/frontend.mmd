@@ -1,0 +1,12 @@
+flowchart TB
+  subgraph Frontend["Namespace: frontend"]
+    WebApp["hr-web"]
+    MobileApp["hr-mobile"]
+    Gateway["Traefik"]
+  end
+
+  WebApp --> Gateway
+  MobileApp --> Gateway
+  Gateway -->|Routes| AuthService
+  Gateway --> LeaveService
+  Gateway --> EventProcessor

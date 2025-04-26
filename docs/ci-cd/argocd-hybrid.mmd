@@ -1,0 +1,6 @@
+flowchart LR
+  CodePush --> GitHubActions
+  GitHubActions -->|Build & Lint| DockerBuild
+  GitHubActions -->|Push| HelmUpdate
+  HelmUpdate --> ArgoCD
+  ArgoCD --> K8sCluster

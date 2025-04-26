@@ -1,0 +1,13 @@
+graph LR
+  A(hr-web repo) -->|CI: Lint, Test, Build| B(Docker image: hr-web)
+  B -->|Push to| GHCR[GitHub Container Registry]
+  A -->|PR triggers GitHub Action| amashr-k8s
+  
+  C(hr-mobile repo) -->|CI: Test, Build| D(Docker image: hr-mobile)
+  D --> GHCR
+
+  E(event-processor repo) -->|CI: Unit, E2E, Build| F(Docker image: event-processor)
+  F --> GHCR
+  E -->|PR updates chart tag| amashr-k8s
+
+  amashr-k8s --> ArgoCD --> K8s[Minikube Cluster]

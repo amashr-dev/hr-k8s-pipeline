@@ -1,0 +1,12 @@
+flowchart TD
+  GitHubRepo["GitHub Repo"]
+  ArgoRoot["ArgoCD: root-app.yaml"]
+  InfraApp["Argo App: infra.yaml"]
+  MicroApp["Argo App: microservices.yaml"]
+  FrontendApp["Argo App: frontend.yaml"]
+  K8s["Kubernetes Cluster"]
+
+  GitHubRepo --> ArgoRoot
+  ArgoRoot --> InfraApp --> K8s
+  ArgoRoot --> MicroApp --> K8s
+  ArgoRoot --> FrontendApp --> K8s

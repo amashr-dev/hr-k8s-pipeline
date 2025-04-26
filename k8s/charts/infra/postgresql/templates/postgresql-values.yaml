@@ -1,0 +1,10 @@
+auth:
+  postgresPassword: hrpassword
+  username: hradmin
+  password: hrpass
+  database: hr
+
+primary:
+  persistence:
+    enabled: true
+    size: 5Gi

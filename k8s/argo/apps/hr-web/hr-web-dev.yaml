@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hr-web-dev
+  namespace: argocd
+spec:
+  destination:
+    namespace: frontend
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    repoURL: https://github.com/allymaumba/amashr-k8s.git
+    targetRevision: dev
+    path: k8s/charts/frontend/hr-web
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true

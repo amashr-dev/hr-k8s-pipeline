@@ -1,0 +1,13 @@
+flowchart TB
+  subgraph Microservices["Namespace: microservices"]
+    AuthService["auth-service"]
+    EventProcessor["event-processor"]
+    LeaveService["leave-service"]
+    EmployeeService["employee-service"]
+    NotificationService["notification-service"]
+  end
+
+  AuthService -->|JWT| EventProcessor
+  LeaveService --> EventProcessor
+  EmployeeService --> EventProcessor
+  NotificationService --> EventProcessor

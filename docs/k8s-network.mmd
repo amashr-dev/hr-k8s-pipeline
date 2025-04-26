@@ -1,0 +1,15 @@
+flowchart TD
+  subgraph K8s
+    configMap["ConfigMap"]
+    secret["Secret"]
+    hpa["HPA"]
+    svc["Service"]
+    ep["Endpoint (auto)"]
+    deploy["Deployment"]
+
+    configMap --> deploy
+    secret --> deploy
+    deploy --> hpa
+    deploy --> svc
+    svc --> ep
+  end

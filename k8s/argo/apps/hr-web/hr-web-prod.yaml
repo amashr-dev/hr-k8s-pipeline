@@ -1,0 +1,5 @@
+spec:
+  source:
+    repoURL: https://github.com/allymaumba/amashr-k8s.git
+    targetRevision: main
+    path: k8s/charts/frontend/hr-web

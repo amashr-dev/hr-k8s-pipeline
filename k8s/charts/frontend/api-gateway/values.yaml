@@ -1,0 +1,32 @@
+deployment:
+  enabled: true
+
+ingressRoute:
+  dashboard:
+    enabled: true
+
+ports:
+  web:
+    redirectTo: websecure
+  websecure:
+    tls:
+      enabled: false  # Enable if cert-manager is added later
+
+service:
+  type: ClusterIP
+
+ingressClassResource:
+  name: traefik
+  controller: traefik.io/ingress-controller
+
+logs:
+  general:
+    level: INFO
+  access:
+    enabled: true
+
+additionalArguments:
+  - "--entrypoints.web.address=:80"
+  - "--entrypoints.websecure.address=:443"
+  - "--providers.kubernetescrd"
+  - "--providers.kubernetesingress"

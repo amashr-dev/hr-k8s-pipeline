@@ -1,0 +1,23 @@
+server:
+  ha:
+    enabled: false
+  dev:
+    enabled: true
+  dataStorage:
+    enabled: false
+  extraEnvironmentVars:
+    VAULT_DEV_ROOT_TOKEN_ID: root
+
+ui:
+  enabled: true
+
+ingress:
+  enabled: true
+  ingressClassName: traefik
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+  hosts:
+    - host: vault.amashr.127.0.0.1.nip.io
+      paths:
+        - path: /
+          pathType: Prefix

@@ -1,0 +1,17 @@
+flowchart TD
+  subgraph Infra["Namespace: infra"]
+    Vault["Vault"]
+    PostgreSQL["PostgreSQL"]
+    Redis["Redis"]
+    Pulsar["Pulsar"]
+    PulsarManager["Pulsar Manager"]
+    Prometheus --> Grafana
+    Vault --> PostgreSQL
+    PostgreSQL --> Liquibase
+    Traefik["Traefik Gateway"]
+  end
+
+  subgraph Frontend
+    HRWeb --> Traefik
+    HRMobile --> Traefik
+  end

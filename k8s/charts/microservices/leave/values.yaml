@@ -1,0 +1,24 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/amashr/event-processor
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 4000
+
+env:
+  PULSAR_BROKER_URL: pulsar://pulsar.infra.svc.cluster.local:6650
+  POSTGRES_URL: postgres://hradmin:hrpass@postgresql.infra.svc.cluster.local:5432/hr
+  REDIS_URL: redis://redis.infra.svc.cluster.local:6379
+
+ingress:
+  enabled: true
+  className: traefik
+  hosts:
+    - host: event.amashr.127.0.0.1.nip.io
+      paths:
+        - path: /
+          pathType: Prefix

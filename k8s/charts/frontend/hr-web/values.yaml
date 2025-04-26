@@ -1,0 +1,25 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/amashr/hr-web
+  tag: latest
+  name: Update Helm image tag
+  run: |
+    yq e -i '.image.tag = "${{ github.sha }}"' k8s/charts/frontend/hr-web/values.yaml
+    git add k8s/charts/frontend/hr-web/values.yaml
+    git commit -m "chore(ci): bump hr-web image tag to ${{ github.sha }}"
+    git push origin HEAD
+
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: traefik
+  hosts:
+    - host: web.amashr.127.0.0.1.nip.io
+      paths:
+        - path: /
+          pathType: Prefix

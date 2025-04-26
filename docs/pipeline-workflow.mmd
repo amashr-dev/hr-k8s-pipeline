@@ -1,0 +1,28 @@
+flowchart TD
+    subgraph INFRA
+      Redis --> Vault
+      Vault --> PostgreSQL
+      PostgreSQL --> Liquibase
+      PostgreSQL --> Prometheus
+      Redis --> Prometheus
+      Prometheus --> Grafana
+      Pulsar --> Prometheus
+      Pulsar --> PulsarManager
+    end
+
+    subgraph SERVICES
+      Auth -->|Event| EventProcessor
+      Leave --> EventProcessor
+      Employee --> EventProcessor
+      Notifications --> EventProcessor
+    end
+
+    subgraph FRONTEND
+      HRWeb --> API
+      HRMobile --> API
+    end
+
+    API(Traefik Gateway) --> Auth
+    API --> Leave
+    API --> Employee
+    API --> Notifications

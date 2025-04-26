@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: liquibase-migration
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-delete-policy": before-hook-creation
+spec:
+  template:
+    spec:
+      containers:
+        - name: liquibase
+          image: liquibase/liquibase:4.23-alpine
+          command: ["liquibase"]
+          args: ["--url=jdbc:postgresql://postgresql:5432/hr", "--changeLogFile=/liquibase/changelog.xml", "update"]
+          volumeMounts:
+            - name: changelogs
+              mountPath: /liquibase
+      volumes:
+        - name: changelogs
+          configMap:
+            name: liquibase-scripts
+      restartPolicy: Never

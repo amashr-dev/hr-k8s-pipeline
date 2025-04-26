@@ -1,0 +1,5 @@
+graph LR
+    GitHubPush -->|Triggers| GitHubActions
+    GitHubActions -->|Applies Helm| ArgoCD
+    ArgoCD -->|Syncs| K8sCluster
+    K8sCluster -->|Deploys| Pods
